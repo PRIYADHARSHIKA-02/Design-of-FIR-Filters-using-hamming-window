@@ -1,6 +1,6 @@
 # Design-of-FIR-Filters-using-hamming-window
 
-# DESIGN OF LOW PASS FIR DIGITAL FILTER 
+# 4B-DESIGN OF LOW PASS FIR DIGITAL FILTER 
 
 # AIM: 
           
@@ -11,8 +11,56 @@
   PC Installed with SCILAB 
 
 # PROGRAM 
+```
+clc ; 
+close ; 
+M=input('Enter the Odd Filter Length ='); 
+Wc=input('Enter the Digital Cut off frequency ='); 
+alpha= (M -1)/2 // Center Value 
+ 
+ 
+for n = 1:M 
+ 
+ 
+if (n ==alpha+1) 
+hd(n) = Wc/ %pi ; 
+else 
+hd(n) = sin(Wc *((n -1)-alpha)) /(((n -1)-alpha)*%pi); 
+end 
+end 
+ 
+ 
+ 
+// Hamming Window 
+for n = 1:M 
+W(n) = 0.54-(0.46*cos((2*%pi*(n-1))/(M-1))); 
+ 
+end 
+ 
+//Windowing filter coefficients 
+h = hd.*W; 
+disp(h,'Filter Coefficients are') 
 
+[hzm,fr]= frmag (h,256) ; 
+subplot(2 ,1 ,1) 
+plot(2*fr, hzm) 
+ 
+xlabel( ' Normalized Digital Frequency w'); 
+ylabel( 'Magnitude '); 
+title( ' Frequency Response of FIR LPF using Hamming Window ') 
 
-# OUTPUT
+hzm_dB = 20* log10 (hzm); 
+subplot (2 ,1 ,2); 
+plot(2*fr , hzm_dB); 
+ 
+xlabel( ' Normalized Digital Frequency W' ); 
+ylabel( 'Magnitude in dB'); 
+title('Frequency Response of FIR LPF using Hamming Window');
+```
 
-# RESULT
+# OUTPUT :
+<img width="1918" height="1199" alt="image" src="https://github.com/user-attachments/assets/81d7ab53-4176-4a8d-ba72-4f85d100d178" />
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/d289f6d1-bd13-47e6-a8dc-be7acde4ae51" />
+
+# RESULT:
+Thus, a high pass FIR Digital filter is designed using SCILAB.
